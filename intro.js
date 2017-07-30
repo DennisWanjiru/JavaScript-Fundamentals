@@ -1,3 +1,5 @@
+"use strict";
+
 const ACCESSORY_PRICE = 9.99;
 const PHONE_PRICE = 99.99;
 const TAX_RATE = 0.08;
@@ -13,12 +15,12 @@ function calcTax (amount) {
 	return amount * TAX_RATE;
 }
 
-//Formating total Amount to 2 decimal places and adding appending $ 
+//Formating total Amount to 2 decimal places and adding appending $
 function formatAmount () {
 	return "$" + amount.toFixed(2);
 }
 
-//Formating BANK amount Bal to 2 decimal places and adding appending $ 
+//Formating BANK amount Bal to 2 decimal places and adding appending $
 function amountBal () {
 	return "$" + (bank_acc_bal - amount).toFixed(2);
 }
@@ -28,9 +30,9 @@ while( amount < bank_acc_bal && bank_acc_bal - amount > PHONE_PRICE) {
 	amount += PHONE_PRICE;
 	if(amount < bank_acc_bal && bank_acc_bal - amount > ACCESSORY_PRICE) {
 		amount += ACCESSORY_PRICE;
-    } else {
+  } else {
 		break;
-    }
+  }
 }
 
 //Printing the results
