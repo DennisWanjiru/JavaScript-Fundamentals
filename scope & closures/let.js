@@ -10,4 +10,19 @@ if(foo) {
 
 //Throws a ReferenceError because let creates a block-scoped variable bar
 //which is not accessible outside the if scope.
-console.log(bar);
+// console.log(bar);
+
+var foo = true, bar = 10;
+
+
+if(foo) {
+	let baz = 3;
+
+	if (bar < baz) {
+		console.log(bar);
+	} else {
+		
+		console.log(baz);
+	}
+
+}
