@@ -14,11 +14,11 @@ var bal = 0, depo, air, wthdrw, sendmny;
 //Selector Variables
 var send = selector("#send"),
     airtime = selector("#airtime"),
-    deposite = selector("#deposite"),
+    deposit = selector("#deposit"),
     withdraw = selector("#withdraw"),
     send_form = selector("#send-div"),
     airtime_form = selector("#airtime-div"),
-    deposite_form = selector("#deposite-div"),
+    deposit_form = selector("#deposit-div"),
     withdraw_form = selector("#withdraw-div");
 
 /*================================================================
@@ -30,15 +30,15 @@ function actualBal () {
 } actualBal();
 
 /*================================================================
-*** Function rabstracting the messages' conditionals ***
+*** Function abstracting the messages' conditionals ***
 ================================================================*/
 
-function dryAlerts (action) {
+function dryAlerts (action, act, act2) {
     if (action > bal) {
-        alerts ("You have insufficient funds in your acc. to send <strong>Kes. " + action + "<strong>", "error");
+        alerts ("You have insufficient funds in your acc. to " + act  + " <strong>Kes. " + action + "<strong>", "error");
     } else {
         bal -= action;
-        alerts ("You've successfully send <strong>Kes. " + action + "<strong>", "success");
+        alerts ("You've successfully " + act2 + " <strong>Kes. " + action + "<strong>", "success");
     }
 }
 
@@ -54,33 +54,33 @@ function alerts (message, status) {
     } else if(status === "error") {
         selector("#alert-div").classList.add("alert-danger");
         selector("#alert-div").classList.remove("alert-success");
-        return selector("#alert-div").innerHTML = "<strong>Error! <strong>" + message;
+        return selector("#alert-div").innerHTML = "<strong>Sorry! <strong>" + message;
     }
       
 }
 
 /****************************************************
  * 
- * DEPOSITE AMOUNT YOUR ACCOUNT
+ * DEPOSIT AMOUNT YOUR ACCOUNT
  * 
  ***************************************************/
 
-deposite.addEventListener("click", function() {
-    deposite_form.classList.toggle("selected");  
+deposit.addEventListener("click", function() {
+    deposit_form.classList.toggle("selected");
 
-    deposite_form.innerHTML = `
-        <h1>Deposite Money</h1>
+    deposit_form.innerHTML = `
+        <h1>Deposit Money</h1>
         <label for="">Enter Amount</label><br>
-        <input type="text" id="deposite-input"><br><br>
-        <button type="button" id="depositeBtn">Deposite</button>           
-    `; 
+        <input type="text" id="deposit-input"><br><br>
+        <button type="button" id="depositBtn">Deposit</button>           
+    `;
 
-    selector("#depositeBtn").addEventListener("click", function() {
-        depo = Number(selector("#deposite-input").value);
+    selector("#depositBtn").addEventListener("click", function() {
+        depo = Number(selector("#deposit-input").value);
         bal += depo;
         alerts ("You've successfully deposited <strong>Kes. " + depo + "<strong>", "success");
         actualBal();
-        selector("#deposite-input").value = "";
+        selector("#deposit-input").value = "";
     }); 
 });
 
@@ -91,7 +91,7 @@ deposite.addEventListener("click", function() {
  ***************************************************/
 
 airtime.addEventListener("click", function() {
-    airtime_form.classList.toggle("selected");  
+    airtime_form.classList.toggle("selected");
 
     airtime_form.innerHTML = `
         <h1>Buy Airtime</h1>
@@ -99,12 +99,12 @@ airtime.addEventListener("click", function() {
         <input type="text" id="airtime-input"><br><br>
         <button type="button" id="airtimeBtn">Buy</button>       
            
-    `; 
+    `;
 
     selector("#airtimeBtn").addEventListener("click", function() {
         air = Number(selector("#airtime-input").value);
-        dryAlerts(air);
-        actualBal()
+        dryAlerts(air, "buy airtime", "bought airtime worth");
+        actualBal();
         selector("#airtime-input").value = "";
     }); 
 });
@@ -116,7 +116,7 @@ airtime.addEventListener("click", function() {
  ***************************************************/
 
 withdraw.addEventListener("click", function() {
-    withdraw_form.classList.toggle("selected");  
+    withdraw_form.classList.toggle("selected");
 
     withdraw_form.innerHTML = `
         <h1>Withdraw Money</h1>
@@ -127,7 +127,7 @@ withdraw.addEventListener("click", function() {
 
     selector("#withdrawBtn").addEventListener("click", function() {
         wthdrw = Number(selector("#withdraw-input").value);
-        dryAlerts(wthdrw);
+        dryAlerts(wthdrw, "withdraw", "withdrawn");
         actualBal();
         selector("#withdraw-input").value = "";
     });
@@ -140,7 +140,7 @@ withdraw.addEventListener("click", function() {
  ***************************************************/
 
 send.addEventListener("click", function() {
-    send_form.classList.toggle("selected");   
+    send_form.classList.toggle("selected");
 
     send_form.innerHTML = `
         <h1>Send Money</h1>
@@ -151,8 +151,8 @@ send.addEventListener("click", function() {
 
     selector("#sendBtn").addEventListener("click", function() {
         sendmny = Number(selector("#send-input").value);
-        dryAlerts(sendmny);
-        actualBal()
+        dryAlerts(sendmny, "send", "sent");
+        actualBal();
         selector("#send-input").value = "";
     });
 });
